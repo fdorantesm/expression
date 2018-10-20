@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./"],
+      "alias": {
+        "app": "./app",
+        "config": "./app/config",
+        "schema": "./app/db/schemas",
+        "model": "./app/db/models",
+        "controller": "./app/http/controllers",
+        "middleware": "./app/http/middleware",
+        "route": "./app/http/routes",
+        "locale": "./app/locales",
+        "log": "./app/logs",
+        "library": "./app/utilities/libraries",
+        "helper": "./app/utilities/helpers",
+        "view": "./app/views"
+      }
+    }]
+  ]
+}

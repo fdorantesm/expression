@@ -1,0 +1,8 @@
+.env
+.nodemon
+*.sublime-package
+*.sublime-project
+public/*
+static/*
+private/*
+node_modules
