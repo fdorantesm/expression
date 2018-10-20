@@ -5,7 +5,7 @@ import app from 'app'
 
 export default class Auth {
 	
-	static async connect (par
+	static async connect (params, password) {
 		if ('email' in params && password) {
 			let user = await User.findOne(params).populate('profile')
 
