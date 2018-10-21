@@ -3,18 +3,22 @@
     ["module-resolver", {
       "root": ["./"],
       "alias": {
-        "app": "./app",
+        // paths
         "config": "./app/config",
         "schema": "./app/db/schemas",
         "model": "./app/db/models",
         "controller": "./app/http/controllers",
-        "middleware": "./app/http/middleware",
+        "middleware": "./app/http/middlewares",
         "route": "./app/http/routes",
         "locale": "./app/locales",
         "log": "./app/logs",
-        "library": "./app/utilities/libraries",
-        "helper": "./app/utilities/helpers",
-        "view": "./app/views"
+        "library": "./app/libraries",
+        "helper": "./app/helpers",
+        "view": "./app/views",
+        // modules
+        "app": "./app/index",
+        "router": "./app/libraries/router",
+        "routes": "./app/http/router.js"
       }
     }]
   ]

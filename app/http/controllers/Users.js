@@ -56,7 +56,6 @@ export default class Users {
 		}
 
 		catch (e) {
-			console.log(e)
 			res.send(e).status(400)
 		}
 	}
@@ -88,8 +87,6 @@ export default class Users {
 				profile: profile._id
 			}
 		})
-
-		console.log(user)
 		
 		try {
 			user = await user.save()
@@ -131,5 +128,13 @@ export default class Users {
 
 
 	}
+
+	static async update (req, res) {}
+
+	static async delete (req, res) {}
+	
+	static async enable (req, res) {}
+	
+	static async disable (req, res) {}
 
 }

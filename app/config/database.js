@@ -14,7 +14,10 @@ export default () => {
 	uri.port = process.env.DB_PORT ? `:${process.env.DB_PORT}` : ''
 	uri.string = `mongodb://${uri.auth}${uri.host}${uri.port}${uri.base}`
 
-	return mongoose.connect(uri.string, {
-		useNewUrlParser:true
-	})
+	return {
+		uri: uri.string, 
+		config: {
+			useNewUrlParser:true
+		}
+	}
 }
