@@ -55,21 +55,21 @@ const options = {
 
 const schema = new mongoose.Schema(fields, options)
 
-schema.post('remove', function(user) {
+schema.post('remove', (user) => {
 	const Profile = mongoose.model('Profile')
 	Profile.findByIdAndRemove(user.profile, (err, row) => {
 		if (err) {
-			console.log(err)
+			
 		}
 
 		else {
-			console.log('user and profile deleted')
+			
 		}
 	})
 })
 
 schema.set('toJSON', {
-    transform: function(doc, ret, opt) {
+    transform: (doc, ret, opt) => {
         delete ret['password']
         delete ret['token']
         return ret

@@ -1,13 +1,13 @@
-import fs from 'fs'
-import rfs from 'rotating-file-stream'
-import routes from 'routes'
-import favicon from 'serve-favicon'
-import logger from 'morgan'
-import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import compression from 'compression'
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import express from 'express'
+import favicon from 'serve-favicon'
+import fs from 'fs'
+import logger from 'morgan'
+import rfs from 'rotating-file-stream'
+import routes from 'routes'
+import serve from 'serve-static'
 
 export default (app) => {
 
@@ -15,7 +15,8 @@ export default (app) => {
 
 	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 
-	app.use(express.static(process.env.PWD + "/"+ process.env.APP_PUBLIC))
+	app.use(`/${process.env.APP_STATIC}`, serve(process.env.PWD + "/"+ process.env.APP_STATIC))
+	app.use(serve(process.env.PWD + "/"+ process.env.APP_PUBLIC))
 	app.use(favicon(process.env.APP_PUBLIC + '/favicon.png'))
 
 	app.use(bodyParser.json())
@@ -32,14 +33,13 @@ export default (app) => {
 
 	app.use('/', routes)
 	
-	app.use(function(req, res, next) {
+	app.use((req, res, next) => {
 		let err = new Error('Not Found')
 		err.status = 404
 		next(err)
 	})
 
-	app.use(function(err, req, res, next) {
-		console.log(err.message)
+	app.use((err, req, res, next) => {
 		res.locals.message = err.message
 		res.locals.error = req.app.get('env').ENV === 'local' ? err : {}
 		res.status(err.status || 500)

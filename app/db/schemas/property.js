@@ -149,7 +149,7 @@ const Schema = new mongoose.Schema(fields, options)
 Schema.set('toJSON', { virtuals: true})
 Schema.set('toObject', { virtuals: true})
 
-Schema.virtual('rent').get(function(){
+Schema.virtual('rent').get(() => {
 	const first = this.contract.warranty + (this.contract.monthsInAdvance * this.cost + this.maintenance)
 	const monthly = this.cost + this.maintenance
 	return {

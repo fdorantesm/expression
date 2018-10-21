@@ -34,7 +34,7 @@ const logger = createLogger({
 
 const origLog = logger.log
 
-logger.log = function (level, msg) {
+logger.log = (level, msg) => {
   if (msg instanceof Error) {
     const args = Array.prototype.slice.call(arguments)
     args[1] = msg.stack

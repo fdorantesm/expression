@@ -79,7 +79,7 @@ const options = {
 const Schema = new mongoose.Schema(fields, options)
 
 Schema.set('toJSON', {
-    transform: function(doc, ret, opt) {
+    transform: (doc, ret, opt) => {
         delete ret['ID']['front']
         delete ret['ID']['back']
         return ret

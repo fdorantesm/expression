@@ -14,7 +14,7 @@ export default class Socket {
 	initialize(server) {
 		let io = socket(server)
 		io.on('connection', (socket) => {
-			console.log('connected')
+			
 		})
 	}
 }
