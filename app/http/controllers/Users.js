@@ -2,6 +2,7 @@ import User from 'model/user'
 import Profile from 'model/profile'
 import Auth from 'library/auth'
 import md5 from 'md5'
+import Conekta from 'library/conekta'
 
 export default class Users {
 
@@ -45,7 +46,7 @@ export default class Users {
 				)
 			}
 
-			response.data = await user.populate('Profile')
+			response.data = await user.populate('profile')
 			
 			if (!req.params.id) {
 				response.pages = Math.ceil(total / response.data.length)
@@ -89,8 +90,32 @@ export default class Users {
 		})
 		
 		try {
+
 			user = await user.save()
-			profile = await profile.save()	
+			profile = await profile.save()
+
+			const Customer = new Conekta.Customer()
+
+			Customer.name = req.body.name
+			Customer.email = req.body.email
+			Customer.phone = `+52${req.body.phone}`
+			Customer.contacts = [{
+				phone: `+52${req.body.phone}`,
+				receiver: req.body.name,
+				between_streets: req.body['address.line3'],
+				address: {
+					street1: `${req.body['address.line1']} ${req.body['address.line2']}`,
+					country: "MX",
+					postal_code: req.body['address.zip']
+					
+				}
+			}]
+
+
+			let conekta = await Customer.save()
+			await Profile.updateOne({_id:profile.id}, {conekta: conekta._id})
+			profile.conekta = conekta._id
+			
 			res.send({
 				data: {
 					user, profile
