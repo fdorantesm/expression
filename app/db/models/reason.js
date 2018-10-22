@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import ReasonSchema from 'schema/reason'
+import reason from 'schema/reason'
 
-export default mongoose.model('Reason', ReasonSchema)
+export default mongoose.model('Reason', reason)

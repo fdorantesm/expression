@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import UserSchema from 'schema/user'
+import user from 'schema/user'
 
-export default mongoose.model('User', UserSchema)
+export default mongoose.model('User', user)

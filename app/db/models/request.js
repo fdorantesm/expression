@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import RequestSchema from 'schema/request'
+import request from 'schema/request'
 
-export default mongoose.model('Request', RequestSchema)
+export default mongoose.model('Request', request)

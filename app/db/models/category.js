@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import CategorySchema from 'schema/category'
+import category from 'schema/category'
 
-export default mongoose.model('Category', CategorySchema)
+export default mongoose.model('Category', category)

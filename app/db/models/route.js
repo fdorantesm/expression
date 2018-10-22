@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import routeSchema from 'schema/route'
+import route from 'schema/route'
 
-export default mongoose.model('Route', routeSchema)
+export default mongoose.model('Route', route)

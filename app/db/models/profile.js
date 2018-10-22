@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import ProfileSchema from 'schema/profile'
+import profile from 'schema/profile'
 
-export default mongoose.model('Profile', ProfileSchema)
+export default mongoose.model('Profile', profile)

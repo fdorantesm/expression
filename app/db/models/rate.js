@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import RateSchema from 'schema/rate'
+import rate from 'schema/rate'
 
-export default mongoose.model('Rate', RateSchema)
+export default mongoose.model('Rate', rate)

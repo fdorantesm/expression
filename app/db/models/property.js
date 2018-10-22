@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import PropertySchema from 'schema/property'
+import property from 'schema/property'
 
-export default mongoose.model('Property', PropertySchema)
+export default mongoose.model('Property', property)

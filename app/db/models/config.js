@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import ConfigSchema from 'schema/config'
+import config from 'schema/config'
 
-export default mongoose.model('Config', ConfigSchema)
+export default mongoose.model('Config', config)

@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import CitySchema from 'schema/city'
+import city from 'schema/city'
 
-export default mongoose.model('City', CitySchema)
+export default mongoose.model('City', city)

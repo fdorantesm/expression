@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import CommentSchema from 'schema/comment'
+import comment from 'schema/comment'
 
-export default mongoose.model('Comment', CommentSchema)
+export default mongoose.model('Comment', comment)

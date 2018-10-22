@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import CardSchema from 'schema/card'
+import card from 'schema/card'
 
-export default mongoose.model('Card', CardSchema)
+export default mongoose.model('Card', card)

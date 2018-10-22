@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import LikeSchema from 'schema/like'
+import like from 'schema/like'
 
-export default mongoose.model('Like', LikeSchema)
+export default mongoose.model('Like', like)

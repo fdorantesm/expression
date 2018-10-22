@@ -1,4 +1,4 @@
 import mongoose from 'mongoose'
-import AmenitySchema from 'schema/amenity'
+import amenity from 'schema/amenity'
 
-export default mongoose.model('Amenity', AmenitySchema)
+export default mongoose.model('Amenity', amenity)
