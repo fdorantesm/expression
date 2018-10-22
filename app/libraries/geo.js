@@ -4,7 +4,9 @@ import Region from 'model/region'
 import City from 'model/city'
 import lang from 'library/lang'
 
-export countries = (params) => {
+const geo = {}
+
+geo.countries = (params) => {
 	return new Promise((resolve, reject) => {
 		let handler
 		if('id' in params)
@@ -39,7 +41,7 @@ export countries = (params) => {
 	})
 }
 
-export regions = (oid) => {
+geo.regions = (oid) => {
 	return new Promise((resolve, reject) => {
 		Country.findById(oid)
 			.then(country => {
@@ -72,7 +74,7 @@ export regions = (oid) => {
 	})
 }
 
-export cities = (region) => {
+geo.cities = (region) => {
 	return new Promise((resolve, reject) => {
 		City.find({ region : region })
 			// .populate(["country","region"])
@@ -92,3 +94,5 @@ export cities = (region) => {
 			})
 	})
 }
+
+export default geo
