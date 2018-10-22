@@ -26,26 +26,26 @@ export default (app) => {
 
 		i18n.expressBind(app, translation)
 
-		switch (process.env.ENV === 'local') {
+		switch (process.env.ENV) {
 			case 'local':
-				process.env.CONEKTA_PUBLIC = CONEKTA_TEST_PUBLIC
-				process.env.CONEKTA_PRIVATE = CONEKTA_TEST_PRIVATE
-				process.env.PAYPAL_PUBLIC = PAYPAL_TEST_PUBLIC
-				process.env.PAYPAL_PRIVATE = PAYPAL_TEST_PRIVATE
+				process.env.CONEKTA_PUBLIC = process.env.CONEKTA_TEST_PUBLIC
+				process.env.CONEKTA_PRIVATE = process.env.CONEKTA_TEST_PRIVATE
+				process.env.PAYPAL_PUBLIC = process.env.PAYPAL_TEST_PUBLIC
+				process.env.PAYPAL_PRIVATE = process.env.PAYPAL_TEST_PRIVATE
 			break;
 			
 			case 'test':
-				process.env.CONEKTA_PUBLIC = CONEKTA_TEST_PUBLIC
-				process.env.CONEKTA_PRIVATE = CONEKTA_TEST_PRIVATE
-				process.env.PAYPAL_PUBLIC = PAYPAL_TEST_PUBLIC
-				process.env.PAYPAL_PRIVATE = PAYPAL_TEST_PRIVATE
+				process.env.CONEKTA_PUBLIC = process.env.CONEKTA_TEST_PUBLIC
+				process.env.CONEKTA_PRIVATE = process.env.CONEKTA_TEST_PRIVATE
+				process.env.PAYPAL_PUBLIC = process.env.PAYPAL_TEST_PUBLIC
+				process.env.PAYPAL_PRIVATE = process.env.PAYPAL_TEST_PRIVATE
 			break;
 
 			case 'production':
-				process.env.CONEKTA_PUBLIC = CONEKTA_LIVE_PUBLIC
-				process.env.CONEKTA_PRIVATE = CONEKTA_LIVE_PRIVATE
-				process.env.PAYPAL_PUBLIC = PAYPAL_LIVE_PUBLIC
-				process.env.PAYPAL_PRIVATE = PAYPAL_LIVE_PRIVATE
+				process.env.CONEKTA_PUBLIC = process.env.CONEKTA_LIVE_PUBLIC
+				process.env.CONEKTA_PRIVATE = process.env.CONEKTA_LIVE_PRIVATE
+				process.env.PAYPAL_PUBLIC = process.env.PAYPAL_LIVE_PUBLIC
+				process.env.PAYPAL_PRIVATE = process.env.PAYPAL_LIVE_PRIVATE
 			break;
 
 		}
