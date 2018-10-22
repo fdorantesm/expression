@@ -6,30 +6,19 @@ import app from 'app'
 export default class Auth {
 	
 	static async connect (params, password) {
+		
+		const err = new Error()
+		
 		if ('email' in params && password) {
+		
 			let user = await User.findOne(params).populate('profile')
-
-			if(!user) {
-				return {
-					status: 400,
-					text: 'User doesnt exist'
-				}
-			}
+			let hash = await Auth.hash(password)
+			let passwordValid = await Auth.compare(password, user.password)
 			
-			let hash = await auth.hash(password)
-			let passwordValid = await auth.compare(password, user.password)
-
 			if (passwordValid) {
+
 				let jwt = app.get('jwt')
-				let token = jwt.sign(
-					{
-						sub: user.id
-					}, 
-					process.env.APP_SECURE_KEY, 
-					{ 
-						expiresIn: process.env.APP_SECURE_EXPIRATION
-					}
-				)
+				let token = jwt.sign({ sub: user.id }, process.env.APP_SECURE_KEY, { expiresIn: process.env.APP_SECURE_EXPIRATION } )
 
 				user.token = token
 				user.lastLogin = new Date()
@@ -37,14 +26,10 @@ export default class Auth {
 
 				user = user.toJSON()
 
-				return {
-					status: 200,
-					text: 'OK',
-					data: {...user, token}
-				}
+				return { ...user, token }
+
 			}
 
-			let err = new Error('Bad Request')
 			err.status = 400
 			err.text = 'The email or password doesn\'t match'
 			throw err
@@ -52,22 +37,18 @@ export default class Auth {
 	}
 
 	static async verify (token) {
+		
 		let jwt = app.get('jwt')
 
 		if (token) {
 			let payload = await jwt.verify(token, process.env.APP_SECURE_KEY)
-			app.set('userdata', payload)
-			return {
-				status: 200,
-				text: 'OK',
-				data: payload,
-			}
+			return payload
 		}
 		
-		let err = new Error('Bad Request')
-		err.status = 500
-		err.text = 'Internal server error'
+		err.status = 400
+		err.text = 'Token is not valid or was expirated'
 		throw err
+
 	}
 
 	static async hash (password) {
