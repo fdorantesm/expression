@@ -14,12 +14,12 @@ const fields = {
 	},
 
 	country: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Country'
 	}
 
 }
 
-const Schema = new mongoose.Schema(fields)
+const schema = new mongoose.Schema(fields)
 
-export default Schema
+export default schema

@@ -3,24 +3,24 @@ import mongoose from 'mongoose'
 const fields = {
 
 	geo: {
-		type: mongoose.Types.Mixed,
+		type: mongoose.Schema.Types.Mixed,
 		required: true,
 		country: {
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Country'
 		},
 		region: {
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Region'
 		},
 		city: {
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'City'
 		}
 	},
 
 	maintenance: {
-		type: mongoose.Types.Mixed,
+		type: mongoose.Schema.Types.Mixed,
 		enabled: {
 			type: Boolean,
 			required: true
@@ -28,7 +28,7 @@ const fields = {
 	},
 	
 	fees: {
-		type: mongoose.Types.Mixed,
+		type: mongoose.Schema.Types.Mixed,
 		lessor: {
 			enabled: {
 				type: Boolean,
@@ -60,7 +60,7 @@ const fields = {
 	}
 }
 
-const Schema = new mongoose.Schema(fields)
+const schema = new mongoose.Schema(fields)
 
-export default Schema
+export default schema
 

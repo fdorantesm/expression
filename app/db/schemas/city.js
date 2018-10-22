@@ -13,18 +13,22 @@ let fields = {
 	},
 	
 	region: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Region',
 		required: true
 	},
 	
 	country: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Country'
 	}
 
 }
 
-const schema =new mongoose.Schema(fields)
+let options = {
+	timestamps: true
+}
+
+const schema = new mongoose.Schema(fields, options)
 
 export default schema

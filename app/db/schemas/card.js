@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 let fields = {
 
 	owner: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 		required: true
 	},

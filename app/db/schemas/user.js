@@ -22,13 +22,13 @@ const fields = {
 	},
 
 	profile: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Profile',
 		required: true
 	},
 
 	role: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Role',
 		default: mongoose.Types.ObjectId("59aad8487bc3533e54555ca2")
 	},

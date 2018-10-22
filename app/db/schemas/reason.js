@@ -23,6 +23,6 @@ const options = {
 	timestamps: true
 }
 
-const Schema = new mongoose.Schema(fields, options)
+const schema = new mongoose.Schema(fields, options)
 
-export default Schema
+export default schema

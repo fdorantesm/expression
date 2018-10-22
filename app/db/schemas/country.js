@@ -18,6 +18,6 @@ const fields = {
 	
 }
 
-const Schema = new mongoose.Schema(fields)
+const schema = new mongoose.Schema(fields)
 
-export default Schema
+export default schema

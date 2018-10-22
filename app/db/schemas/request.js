@@ -51,8 +51,8 @@ const options = {
 	timestamps: true
 }
 
-const Schema = new mongoose.Schema(fields, options)
+const schema = new mongoose.Schema(fields, options)
 
-Schema.plugin(mongooseSoftdelete)
+schema.plugin(mongooseSoftdelete)
 
-export default Schema
+export default schema

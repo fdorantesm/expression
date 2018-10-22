@@ -3,13 +3,13 @@ import mongoose from 'mongoose'
 const fields = {
 
 	user: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 		required: true
 	},
 
 	comment: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Comment',
 		required: true
 	},
@@ -25,6 +25,6 @@ const options = {
 	timestamps: true
 }
 
-const Schema = new mongoose.Schema(fields, options)
+const schema = new mongoose.Schema(fields, options)
 
-export default Schema
+export default schema

@@ -23,15 +23,15 @@ const fields = {
 			type: String
 		},
 		city: {
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'City'
 		},
 		region: {
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Region'
 		},
 		country: {
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Country'
 		}
 	},
@@ -76,9 +76,9 @@ const options = {
 	timestamps: true
 }
 
-const Schema = new mongoose.Schema(fields, options)
+const schema = new mongoose.Schema(fields, options)
 
-Schema.set('toJSON', {
+schema.set('toJSON', {
     transform: (doc, ret, opt) => {
         delete ret['ID']['front']
         delete ret['ID']['back']
@@ -86,4 +86,4 @@ Schema.set('toJSON', {
     }
 })
 
-export default Schema
+export default schema

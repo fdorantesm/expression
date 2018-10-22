@@ -14,12 +14,12 @@ const fields = {
 		minLength: 255,
 	},
 	
-	files: [
-
-	],
+	files: {
+		type: Array
+	},
 	
 	category: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Category',
 		required: true
 	},
@@ -30,64 +30,63 @@ const fields = {
 		unique: true
 	},
 	
-	amenities: [
-		{
-			type: mongoose.Types.ObjectId,
-			ref: 'Amenity'
-		}
-	],
+	amenities: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Amenity'
+	}],
 	
 	address: {
 		line1: {
 			type: String,
-			required: true
+			// required: true
 		},
 		line2: {
 			type: String,
-			required: true
+			// required: true
 		},
 		line3: {
 			type: String
 		},
 		zip: {
-			type: Number,
-			max: 99999,
-			min: 1000
+			type: String,
+			// required: true,
+			max: 10
 		},
 		city: {
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'City'
 		},
 		region: {
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Region'
 		},
 		country: {
-			type: mongoose.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Country'
 		},
 		location: {
 			lat: {
 				type: Number,
-				required: true
+				// required: true
 			},
 			lon: {
 				type: Number,
-				required: true
+				// required: true
 			}
 		}
 
 	},
 	
 	owner: {
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 		required: true
 	},
 	
 	cost: {
 		type: Number,
-		required: true
+		required: true,
+		default: 0
 	},
 	
 	maintenance: {
@@ -99,15 +98,18 @@ const fields = {
 	contract: {
 		length:{
 			type: Number,
-			required: true
+			required: true,
+			default: 12
 		},
 		warranty: {
 			type: Number,
-			required: true
+			required: true,
+			default: 0
 		},
 		monthsInAdvance: {
 			type: Number,
-			required: true
+			required: true,
+			default: 1
 		},
 	},
 	
@@ -124,17 +126,17 @@ const fields = {
 	options: Object,
 	
 	reviews: [{
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Comment'
 	}],
 	
 	rates: [{
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Rate'
 	}],
 	
 	requests: [{
-		type: mongoose.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Request'
 	}]
 }
@@ -144,12 +146,12 @@ const options = {
 	timestamps: true
 }
 
-const Schema = new mongoose.Schema(fields, options)
+const schema = new mongoose.Schema(fields, options)
 
-Schema.set('toJSON', { virtuals: true})
-Schema.set('toObject', { virtuals: true})
+schema.set('toJSON', { virtuals: true})
+schema.set('toObject', { virtuals: true}) 
 
-Schema.virtual('rent').get(() => {
+schema.virtual('rent').get(function() {
 	const first = this.contract.warranty + (this.contract.monthsInAdvance * this.cost + this.maintenance)
 	const monthly = this.cost + this.maintenance
 	return {
@@ -166,6 +168,6 @@ Schema.virtual('rent').get(() => {
 	}
 })
 
-Schema.plugin(mongooseSoftdelete)
+schema.plugin(mongooseSoftdelete)
 
-export default Schema
+export default schema
