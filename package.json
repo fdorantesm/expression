@@ -5,9 +5,9 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "nodemon bin/www --watch ../app --exec 'node --require dotenv/config' ",
-    "start": "TZ='America/Mexico_City' NODE_ENV=prod forever start bin/www --exec babel-node --presets env,stage-2 -r dotenv/config",
-    "test": "TZ='America/Mexico_City' NODE_ENV=test forever start bin/www --exec babel-node --presets env,stage-2 -r dotenv/config"
+    "dev": "nodemon  bin/www --exec babel-node --presets env,stage-2",
+    "start": "forever start bin/www --exec babel-node --presets env,stage-2 -r dotenv/config",
+    "test": "forever start bin/www --exec babel-node --presets env,stage-2 -r dotenv/config"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "cloudinary": "^1.11.0",
     "compression": "^1.7.3",
     "conekta-promises": "^3.2.1",
+    "consign": "^0.1.6",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "debug": "^4.1.0",
