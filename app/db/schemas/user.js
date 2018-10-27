@@ -30,7 +30,7 @@ const fields = {
 	role: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Role',
-		default: mongoose.Types.ObjectId("59aad8487bc3533e54555ca2")
+		default: mongoose.Types.ObjectId("5bd4845873912e106d5481e7")
 	},
 
 	status: {

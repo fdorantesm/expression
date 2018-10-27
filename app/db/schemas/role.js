@@ -6,6 +6,11 @@ const fields = {
 		type: String
 	},
 
+	level: {
+		type: Number,
+		default: 0
+	},
+
 	active: {
 		type: Boolean
 	}
