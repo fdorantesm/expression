@@ -112,8 +112,6 @@ export default class Properties {
 
 	static async create (req, res) {
 		
-		console.log(req)
-
 		const params = {}
 		
 		params.title = req.body.title
@@ -173,7 +171,7 @@ export default class Properties {
 				res.send(null)
 			}
 			else {
-				res.status(404).send(null)
+				res.boom.notFound()
 			}
 		}
 		catch (err) {
@@ -189,7 +187,7 @@ export default class Properties {
 				res.send(null)
 			}
 			else {
-				res.status(404).send(null)
+				res.boom.notFound()
 			}			
 		}
 		catch (err) {

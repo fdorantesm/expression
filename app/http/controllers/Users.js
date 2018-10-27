@@ -7,7 +7,7 @@ import Conekta from 'library/conekta'
 export default class Users {
 
 	static async get(req, res) {
-			
+
 		let filter = {}
 		let user
 		const count = 10

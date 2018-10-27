@@ -4,15 +4,21 @@ const router = Router()
 
 import User from 'controller/Users'
 import Auth from 'middleware/auth'
+import {
+	fetchAllUsers, 
+	createUser, 
+	editUser, 
+	deleteUser 
+} from 'middleware/users'
 
 router.route('/')
-	.get(Auth.api, User.get)
-	.post(Auth.api, User.create)
+	.get(Auth.authenticated, fetchAllUsers, User.get)
+	.post(Auth.authenticated, createUser, User.create)
 
 router.route('/:id')
 	.get(User.get)
-	.post(User.update)
-	.delete(User.delete)
+	.post(editUser, User.update)
+	.delete(deleteUser, User.delete)
 	.patch(User.enable)
 	.patch(User.disable)
 

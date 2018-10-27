@@ -8,6 +8,7 @@ import users from 'route/users'
 import properties from 'route/properties'
 import auth from 'route/auth'
 
+router.get('/', (req, res) => res.render('index'))
 router.use('/users', users)
 router.use('/properties', properties)
 router.use('/auth', auth)

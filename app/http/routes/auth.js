@@ -7,6 +7,6 @@ const router = Router()
 
 router.post('/login', Auth.login)
 
-router.get('/whoami', middleware.api, Auth.whoami)
+router.get('/whoami', middleware.authenticated, Auth.whoami)
 
 export default router
