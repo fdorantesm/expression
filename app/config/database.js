@@ -3,7 +3,7 @@ import {indexOf} from 'lodash'
 
 export default () => {
 
-	mongoose.set('debug', process.env.DB_DEBUG)
+	mongoose.set('debug', process.env.DB_DEBUG == 'true' )
 	mongoose.Promise = global.Promise
 
 	let uri = {}
