@@ -1,4 +1,4 @@
-import AccessControl from 'accesscontrol'
-import permissions from 'config/permissions'
+import acl from 'acl'
+import mongoose from 'library/mongodb'
 
-export default new AccessControl(permissions)
+export default new acl(new acl.memoryBackend())

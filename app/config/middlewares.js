@@ -8,6 +8,11 @@ import logger from 'morgan'
 import rfs from 'rotating-file-stream'
 import routes from 'routes'
 import serve from 'serve-static'
+import i18n from 'i18n'
+import locales from 'config/i18n'
+import Auth from 'middleware/auth'
+import acl from 'library/permissions'
+import boom from 'express-boom'
 
 export default (app) => {
 
@@ -23,16 +28,17 @@ export default (app) => {
 	app.use(bodyParser.urlencoded({ extended: false }))
 	app.use(cookieParser())
 	app.use(cors({ origin: '*' }))
-	
-	app.use((req, res, next) => {
-		res.header('Access-Control-Allow-Origin', '*');
-		res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
-	    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-	    next()
-	})
+
+	i18n.configure(locales)
+
+	app.use(i18n.init)
+
+	app.use(boom())
+
+	app.use(Auth.handshake, Auth.authorization)
 
 	app.use('/', routes)
-	
+
 	app.use((req, res, next) => {
 		let err = new Error('Not Found')
 		err.status = 404
@@ -56,6 +62,7 @@ export default (app) => {
 			}
 		)
 	}))
+
 
 	return app
 

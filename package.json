@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "nodemon  bin/www --exec babel-node --presets env,stage-2",
+    "dev": "nodemon --config .nodemon  bin/www --exec babel-node --presets env,stage-2",
     "start": "forever start bin/www --exec babel-node --presets env,stage-2 -r dotenv/config",
     "test": "forever start bin/www --exec babel-node --presets env,stage-2 -r dotenv/config"
   },
@@ -17,6 +17,7 @@
     "acl": "^0.4.11",
     "bcrypt": "^3.0.1",
     "body-parser": "^1.18.3",
+    "boom": "^7.2.0",
     "cloudinary": "^1.11.0",
     "compression": "^1.7.3",
     "conekta-promises": "^3.2.1",
@@ -25,6 +26,8 @@
     "cors": "^2.8.4",
     "debug": "^4.1.0",
     "express": "^4.16.4",
+    "express-boom": "^2.0.0",
+    "i18n": "^0.8.3",
     "i18n-2": "^0.7.3",
     "jsonwebtoken": "^8.3.0",
     "md5": "^2.2.1",
@@ -37,6 +40,7 @@
     "rotating-file-stream": "^1.3.6",
     "serve-favicon": "^2.5.0",
     "socket.io": "^2.1.1",
+    "vhost": "^3.0.2",
     "winston": "^3.1.0"
   },
   "devDependencies": {
@@ -44,22 +48,27 @@
   },
   "babel": {
     "plugins": [
-      ["module-resolver", {
-        "root": ["./app"],
-        "alias": {
-          "config": "./app/config",
-          "schema": "./app/db/schemas",
-          "model": "./app/db/models",
-          "controller": "./app/http/controllers",
-          "middleware": "./app/http/middleware",
-          "route": "./app/http/routes",
-          "locale": "./app/locales",
-          "log": "./app/logs",
-          "library": "./app/utilities/libraries",
-          "helper": "./app/utilities/helpers",
-          "view": "./app/views"
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./app"
+          ],
+          "alias": {
+            "config": "./app/config",
+            "schema": "./app/db/schemas",
+            "model": "./app/db/models",
+            "controller": "./app/http/controllers",
+            "middleware": "./app/http/middleware",
+            "route": "./app/http/routes",
+            "locale": "./app/locales",
+            "log": "./app/logs",
+            "library": "./app/utilities/libraries",
+            "helper": "./app/utilities/helpers",
+            "view": "./app/views"
+          }
         }
-      }]
+      ]
     ]
   }
 }
