@@ -7,3 +7,4 @@ static/*
 private/*
 node_modules
 .hidden
+app/logs
