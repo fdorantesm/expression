@@ -9,7 +9,7 @@ export const fetchAllUsers = async (req, res, next) => {
 }
 
 export const createUser = async (req, res, next) => {
-	if (await spatie.can(req.user.id, 'create', 'user'))
+	if (await spatie.can(req.user.id, 'create:any', 'user'))
 		next()
 	else
 		res.boom.unauthorized()

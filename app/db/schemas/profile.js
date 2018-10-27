@@ -80,6 +80,9 @@ const schema = new mongoose.Schema(fields, options)
 
 schema.set('toJSON', {
     transform: (doc, ret, opt) => {
+    	delete ret['address']
+    	delete ret['phone']
+    	delete ret['conekta']
         delete ret['ID']['front']
         delete ret['ID']['back']
         return ret
