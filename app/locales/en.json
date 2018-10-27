@@ -1,1 +1,35 @@
-{}
+{
+	"general": {
+		"success": {
+			"created": "%s was created successfully.",
+			"updated": "%s was updated successfully.",
+			"deleted": "%s was deleted successfully.",
+			"restored": "%s was restored successfully.",
+			"ok": "ok"
+		},
+		"error": {
+			"fatalError": "Whoops, there was a problem while processing the request.",
+			"nothingToShow": "There's not %s to show.",
+			"notCreated": "Could not possible to create a %s object.",
+			"notFound": "%s was not found.",
+			"yetDeleted": "%s yet deleted.",
+			"isNotDeleted": "%s is not on deleted status.",
+			"yetRestores": "%s yet restored.",
+			"yetRestored": "yetRestored"
+		},
+		"http": {
+			"ok": "OK.",
+			"notFound": "The resource was not found.",
+			"badRequest": "The request's params is malformed.",
+			"gone": "The resource was removed permanently."
+		}
+	},
+	"user": {
+		"success": {},
+		"error": {}
+	},
+	"property": {
+		"success": {},
+		"error": {}
+	}
+}
