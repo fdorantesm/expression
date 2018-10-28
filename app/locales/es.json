@@ -5,7 +5,6 @@
 			"updated": "%s was updated successfully.",
 			"deleted": "%s was deleted successfully.",
 			"restored": "%s was restored successfully.",
-			"ok": "ok"
 		},
 		"error": {
 			"fatalError": "Whoops, there was a problem while processing the request.",
@@ -17,12 +16,6 @@
 			"yetRestores": "%s yet restored.",
 			"yetRestored": "yetRestored"
 		},
-		"http": {
-			"ok": "OK.",
-			"notFound": "The resource was not found.",
-			"badRequest": "The request's params is malformed.",
-			"gone": "The resource was removed permanently."
-		}
 	},
 	"user": {
 		"success": {},
