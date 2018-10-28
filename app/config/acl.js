@@ -12,6 +12,7 @@ acl.allow([
 		roles: ['client'],
 		allows: [
 			{ resources: 'property', permissions: ['create:own', 'update:own', 'delete:own'] },
+			{ resources: 'card', permissions: ['create:own', 'update:own', 'delete:own'] },
 		]
 	},
 	{

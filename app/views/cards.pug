@@ -1,0 +1,27 @@
+extends layout
+
+block content
+	script(type="text/javascript" src="https://cdn.conekta.io/js/latest/conekta.js")
+	script.
+		Conekta.setPublicKey('key_LseWhbmUpUbMyc83NLWjbYg');
+
+		var tokenParams = {
+		  "card": {
+		    "number": "5105105105105100",
+		    "name": "Fernando Dorantes Monsiváis",
+		    "exp_year": "2021",
+		    "exp_month": "07",
+		    "cvc": "124"
+		  }
+		};
+
+		var successResponseHandler = function(token){
+			console.log(token)
+		}
+
+		var errorResponseHandler = function(error){
+			console.log(error)
+		}
+
+		Conekta.Token.create(tokenParams, successResponseHandler, errorResponseHandler);
+	

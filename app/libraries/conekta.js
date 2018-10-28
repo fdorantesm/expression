@@ -1,52 +1,53 @@
 import conekta from 'conekta-promises'
 
-class Conekta {
-	constructor() {
-		conekta.locale = process.env.CONEKTA_LOCALE
-		conekta.api_key = process.env.CONEKTA_PRIVATE
-		this.conekta = conekta
-	}
-}
+conekta.locale = process.env.CONEKTA_LOCALE
+conekta.api_key = process.env.CONEKTA_PRIVATE
 
-class Customer extends Conekta {
+const Conekta = {
 	
-	constructor() {
-		super()
-		this.name = null
-		this.email = null
-		this.phone = null
-		this.contacts = []
-	}
-
-	async save  () {
+	Customer: {
 		
-		const customer = await conekta.Customer.create({
-			name: this.name,
-			email: this.email,
-			phone: this.phone,
-			shipping_contacts: this.contacts
-		})
+		create: async (params) => {
+			const customer = await conekta.Customer.create({
+				name: params.name,
+				email: params.email,
+				phone: params.phone,
+				shipping_contacts: params.contacts
+			})
 
-		return customer
+			return customer
+		},
+		
+		all: async () => {
+			const customers = await conekta.Customer.find()
+			return customers
+		},
+
+		get: async (id) => {
+			return await conekta.Customer.find(id)
+		},
+		
+	},
+
+	Card: {
+
+		create: async (customer, token) => {
+			return await customer.createPaymentSource({
+				type: "card",
+				token_id: token
+			})
+		}
+
+	},
+
+	Plan: {
+
+	},
+
+	Order: {
+
 	}
 
-	async all () {
-		const customers = await conekta.Customer.find()
-		return customers
-	}
-
 }
 
-class Plan extends Conekta {
-	constructor() {
-		super()
-	}	
-}
-
-class Order extends Conekta {
-	constructor() {
-		super()
-	}	
-}
-
-export default { Conekta, Customer, Order, Plan }
+export default Conekta
