@@ -36,6 +36,24 @@ const Conekta = {
 				type: "card",
 				token_id: token
 			})
+		},
+
+		remove: async (customer, token) => {
+			try {
+				if (customer.payment_sources) {
+					const cards = customer.payment_sources.toObject()
+					const index = cards.data.findIndex(card => card.id == token)
+					console.log(index)
+					if (index >= 0){
+						const removed = await customer.payment_sources.get(index).delete()
+						return removed
+					}
+				}
+			}
+
+			catch (e) {
+				console.log(e)
+			}
 		}
 
 	},
