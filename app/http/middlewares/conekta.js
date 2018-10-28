@@ -10,3 +10,12 @@ export const createCard = async (req, res, next) => {
 		res.boom.unauthorized()
 	}
 }
+
+export const removeCard = async (req, res, next) => {
+	if (await spatie.can(req.user.id, 'delete:own', 'card'))
+		next()
+	else{
+		Log.info(`${req.user.nickname} tried to remove a card`)
+		res.boom.unauthorized()
+	}
+}
