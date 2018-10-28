@@ -20,6 +20,6 @@ const fields = {
 
 }
 
-const schema = new mongoose.Schema(fields)
+const Region = new mongoose.Schema(fields)
 
-export default schema
+export default mongoose.model('Region', Region)

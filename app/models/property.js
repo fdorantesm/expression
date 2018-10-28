@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 import mongooseSoftdelete from 'mongoose-softdelete'
 
 const fields = {
@@ -146,12 +147,12 @@ const options = {
 	timestamps: true
 }
 
-const schema = new mongoose.Schema(fields, options)
+const Property = new mongoose.Schema(fields, options)
 
-schema.set('toJSON', { virtuals: true})
-schema.set('toObject', { virtuals: true}) 
+Property.set('toJSON', { virtuals: true})
+Property.set('toObject', { virtuals: true}) 
 
-schema.virtual('rent').get(function() {
+Property.virtual('rent').get(function() {
 	const first = this.contract.warranty + (this.contract.monthsInAdvance * this.cost + this.maintenance)
 	const monthly = this.cost + this.maintenance
 	return {
@@ -168,6 +169,6 @@ schema.virtual('rent').get(function() {
 	}
 })
 
-schema.plugin(mongooseSoftdelete)
+Property.plugin(mongooseSoftdelete)
 
-export default schema
+export default mongoose.model('Property', Property)

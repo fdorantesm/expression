@@ -1,21 +1,22 @@
 import mongoose from 'mongoose'
 
 const fields = {
-
+	
 	user: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',
 		required: true
 	},
-
-	comment: {
+	
+	object: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Comment',
 		required: true
 	},
-
-	like: {
-		type: Boolean,
+	
+	rate: {
+		type: Number,
+		min: 1,
+		max: 5,
 		required: true
 	}
 	
@@ -25,6 +26,6 @@ const options = {
 	timestamps: true
 }
 
-const schema = new mongoose.Schema(fields, options)
+const Rate = new mongoose.Schema(fields, options)
 
-export default schema
+export default mongoose.model('Rate', Rate)

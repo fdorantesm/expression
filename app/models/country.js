@@ -18,6 +18,6 @@ const fields = {
 	
 }
 
-const schema = new mongoose.Schema(fields)
+const Country = new mongoose.Schema(fields)
 
-export default schema
+export default mongoose.model('Country', Country)

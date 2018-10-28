@@ -5,8 +5,7 @@
       "alias": {
         // paths
         "config": "./app/config",
-        "schema": "./app/db/schemas",
-        "model": "./app/db/models",
+        "model": "./app/models",
         "controller": "./app/http/controllers",
         "middleware": "./app/http/middlewares",
         "route": "./app/http/routes",
@@ -17,7 +16,6 @@
         "view": "./app/views",
         // modules
         "app": "./app/index",
-        "loader": "./app/loader",
         "router": "./app/libraries/router",
         "routes": "./app/http/router.js"
       }

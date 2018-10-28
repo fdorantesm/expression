@@ -1,4 +1,3 @@
-import loader from 'loader'
 import dotenv from 'dotenv/config'
 import express from 'express'
 import api from 'config/api'

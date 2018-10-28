@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 import mongooseSoftdelete from 'mongoose-softdelete'
 
 const fields = {
@@ -51,8 +52,8 @@ const options = {
 	timestamps: true
 }
 
-const schema = new mongoose.Schema(fields, options)
+const Request = new mongoose.Schema(fields, options)
 
-schema.plugin(mongooseSoftdelete)
+Request.plugin(mongooseSoftdelete)
 
-export default schema
+export default mongoose.model('Request', Request)

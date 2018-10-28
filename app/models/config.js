@@ -60,7 +60,6 @@ const fields = {
 	}
 }
 
-const schema = new mongoose.Schema(fields)
+const Config = new mongoose.Schema(fields)
 
-export default schema
-
+export default mongoose.model('Config', Config)

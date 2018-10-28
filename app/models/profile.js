@@ -81,9 +81,9 @@ const options = {
 	timestamps: true
 }
 
-const schema = new mongoose.Schema(fields, options)
+const Profile = new mongoose.Schema(fields, options)
 
-schema.set('toJSON', {
+Profile.set('toJSON', {
     transform: (doc, ret, opt) => {
     	delete ret['address']
     	delete ret['phone']
@@ -94,4 +94,4 @@ schema.set('toJSON', {
     }
 })
 
-export default schema
+export default mongoose.model('Profile', Profile)

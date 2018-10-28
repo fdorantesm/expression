@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+
 import mongooseBeautifulUniqueValidation from 'mongoose-beautiful-unique-validation'
 
 const fields = {
@@ -53,9 +54,9 @@ const options = {
 	timestamps: true
 }
 
-const schema = new mongoose.Schema(fields, options)
+const User = new mongoose.Schema(fields, options)
 
-schema.post('remove', (user) => {
+User.post('remove', (user) => {
 	const Profile = mongoose.model('Profile')
 	Profile.findByIdAndRemove(user.profile, (err, row) => {
 		if (err) {
@@ -68,7 +69,7 @@ schema.post('remove', (user) => {
 	})
 })
 
-schema.set('toJSON', {
+User.set('toJSON', {
     transform: (doc, ret, opt) => {
         delete ret['password']
         delete ret['token']
@@ -76,6 +77,6 @@ schema.set('toJSON', {
     }
 })
 
-schema.plugin(mongooseBeautifulUniqueValidation)
+User.plugin(mongooseBeautifulUniqueValidation)
 
-export default schema
+export default mongoose.model('User', User)

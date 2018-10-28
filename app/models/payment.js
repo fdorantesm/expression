@@ -43,6 +43,6 @@ const options = {
 	timestamps: true
 }
 
-const schema = new mongoose.Schema(fields, options)
+const Payment = new mongoose.Schema(fields, options)
 
-export default schema
+export default mongoose.model('Payment', Payment)
