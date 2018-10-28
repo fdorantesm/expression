@@ -66,7 +66,12 @@ const fields = {
 	verified: {
 		type: Boolean,
 		default: false
-	}
+	},
+
+	cards: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Card'
+	}]
 
 }
 
