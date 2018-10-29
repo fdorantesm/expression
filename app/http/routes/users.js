@@ -2,7 +2,7 @@ import Router from 'router'
 
 const router = Router()
 
-import User from 'controller/Users'
+import UsersController from 'controller/Users'
 import Auth from 'middleware/auth'
 import {
 	fetchAllUsers, 
@@ -12,14 +12,14 @@ import {
 } from 'middleware/users'
 
 router.route('/')
-	.get(Auth.authenticated, fetchAllUsers, User.get)
-	.post(Auth.authenticated, createUser, User.create)
+	.get(Auth.authenticated, fetchAllUsers, UsersController.get)
+	.post(Auth.authenticated, createUser, UsersController.create)
 
 router.route('/:id')
-	.get(User.get)
-	.post(editUser, User.update)
-	.delete(deleteUser, User.delete)
-	.patch(User.enable)
-	.patch(User.disable)
+	.get(UsersController.get)
+	.post(editUser, UsersController.update)
+	.delete(deleteUser, UsersController.delete)
+	.patch(UsersController.enable)
+	.patch(UsersController.disable)
 
 export default router

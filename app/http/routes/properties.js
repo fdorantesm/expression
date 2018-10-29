@@ -1,16 +1,16 @@
 import Router from 'router'
-import properties from 'controller/Properties'
+import PropertiesController from 'controller/Properties'
 
 const router = Router()
 
 router.route('/')
-	.get(properties.get)
-	.post(properties.create)
+	.get(PropertiesController.get)
+	.post(PropertiesController.create)
 
 router.route('/:id')
-	.get(properties.get)
-	.post(properties.update)
-	.patch(properties.restore)
-	.delete(properties.delete)
+	.get(PropertiesController.get)
+	.post(PropertiesController.update)
+	.patch(PropertiesController.restore)
+	.delete(PropertiesController.delete)
 
 export default router
