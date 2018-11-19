@@ -13,7 +13,6 @@ export default (app) => {
 	app.set('secret', process.env.APP_SECURE_KEY)
 	app.set('salt', process.env.APP_SECURE_SALT)
 	app.set("x-powered-by", process.env.APP_EXPOSE)
-	app.set('jwt', jwt)
 	app.set('token_expires', process.env.APP_SECURE_EXPIRATION)
 
 	switch (process.env.ENV) {
