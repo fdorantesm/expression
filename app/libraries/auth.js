@@ -1,7 +1,7 @@
 import moment from 'moment'
 import User from 'model/user'
 import bcrypt from 'bcrypt'
-import app from 'app'
+import jwt from 'jsonwebtoken'
 
 export default class Auth {
 	
@@ -10,36 +10,35 @@ export default class Auth {
 		const err = new Error()
 		
 		if ('email' in params && password) {
-		
-			let user = await User.findOne(params).populate('profile')
-			let hash = await Auth.hash(password)
-			let passwordValid = await Auth.compare(password, user.password)
 			
-			if (passwordValid) {
+			let user = await User.findOne(params).populate('profile')
 
-				let jwt = app.get('jwt')
-				let token = jwt.sign({ sub: user.id }, process.env.APP_SECURE_KEY, { expiresIn: process.env.APP_SECURE_EXPIRATION } )
-
-				user.token = token
-				user.lastLogin = new Date()
-				user.save()
-
-				user = user.toJSON()
-
-				return { ...user, token }
-
+			if (!user) {
+				err.status = 422
+				err.message = 'The email and password doesn\'t match...'
+				throw err
 			}
 
-			err.status = 400
-			err.text = 'The email or password doesn\'t match'
-			throw err
+			const match = await Auth.compare(password, user.password)
+			
+			if (match) {
+				let token = jwt.sign({ sub: user.id }, process.env.APP_SECURE_KEY, { expiresIn: process.env.APP_SECURE_EXPIRATION } )
+				user.token = token
+				user.lastLogin = new Date()
+				user = await user.save()
+				return token
+			}
+			
+			else {
+				err.status = 400
+				err.message = 'The email and password doesn\'t match'
+				throw err
+			}
 		}
 	}
 
 	static async verify (token) {
 		
-		let jwt = app.get('jwt')
-
 		if (token) {
 			let payload = await jwt.verify(token, process.env.APP_SECURE_KEY)
 			return payload
