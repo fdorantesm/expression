@@ -9,12 +9,10 @@ const fields = {
 
 	address: {
 		line1: {
-			type: String,
-			required: true
+			type: String
 		},
 		line2: {
-			type: String,
-			required: true
+			type: String
 		},
 		line3: {
 			type: String
@@ -24,15 +22,18 @@ const fields = {
 		},
 		city: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'City'
+			ref: 'City',
+			required: true
 		},
 		region: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Region'
+			ref: 'Region',
+			required: true
 		},
 		country: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Country'
+			ref: 'Country',
+			required: true
 		}
 	},
 	
@@ -41,8 +42,7 @@ const fields = {
 	},
 	
 	dob: {
-		type: Date,
-		required: true
+		type: Date
 	},
 	
 	ID: {
@@ -50,12 +50,10 @@ const fields = {
 			type: Boolean
 		},
 		front: {
-			type: String,
-			required: true
+			type: String
 		},
 		back: {
-			type: String,
-			required: true
+			type: String
 		}
 	},
 	

@@ -4,6 +4,7 @@ const router = Router()
 
 import UsersController from 'controller/Users'
 import Auth from 'middleware/auth'
+
 import {
 	fetchAllUsers, 
 	createUser, 

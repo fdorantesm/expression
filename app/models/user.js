@@ -69,10 +69,10 @@ User.post('remove', (user) => {
 	})
 })
 
-User.set('toJSON', {
-    transform: (doc, ret, opt) => {
-        delete ret['password']
-        delete ret['token']
+User.set('toObject', {
+    transform: (doc, ret) => {
+        delete ret.password
+        delete ret.token
         return ret
     }
 })

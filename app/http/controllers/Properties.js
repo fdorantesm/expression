@@ -11,14 +11,39 @@ export default class Properties {
 		let totalProperties = 0
 		let response = {}
 		const paginate = {}
+		const populate = [
+			{
+				path: 'owner',
+				model: 'User',
+				populate: [
+					{
+						path: 'profile',
+						model: 'Profile',
+						populate: [
+							{ path: 'address.country', model: 'Country' },
+							{ path: 'address.region', model: 'Region' },
+							{ path: 'address.city', model: 'City' }
+						]
+					}
+				]
+			},
+			'address.country',
+			'address.region',
+			'address.city',
+			'amenities',
+			'category',
+			'files'
+		]
 		
 		if ('id' in req.params) {
-			handler = Property.findById(req.params.id)
+			handler = Property.findById(req.params.id).populate(populate)
 		}
 
 		else {
 			paginate.count = 10
-			paginate.start = ((req.query.page || 1) -1) * paginate.count
+			paginate.page = req.query.page || 1
+			paginate.start = paginate.page * paginate.count
+
 
 			if('category' in req.query) {
 				filter.category = req.query.category
@@ -38,43 +63,18 @@ export default class Properties {
 				filter.owner = req.query.owner
 			}
 
-			handler = Property.find(filter)
+			handler = Property.paginate({...filter, ...{ deleted:false }}, {
+				page: paginate.page, 
+				limit: paginate.count,
+				populate
+			})
 
-			totalProperties = handler.lenth
-			
-			if (paginate) {
-				handler
-					.skip(paginate.start)
-					.limit(paginate.count)
-			}
+			// totalProperties = handler.length
 
 		}
 
 		try {
-			let result = await handler.where({...filter, ...{ deleted:false }})
-			.populate([
-				{
-					path: 'owner',
-					model: 'User',
-					populate: [
-						{
-							path: 'profile',
-							model: 'Profile',
-							populate: [
-								{ path: 'address.country', model: 'Country' },
-								{ path: 'address.region', model: 'Region' },
-								{ path: 'address.city', model: 'City' }
-							]
-						}
-					]
-				},
-				'address.country',
-				'address.region',
-				'address.city',
-				'amenities',
-				'category',
-				'files'
-			])
+			let result = await handler
 
 			if (!result) {
 				const err = new Error('Not Found')
@@ -94,10 +94,7 @@ export default class Properties {
 
 			else {
 				response = {
-					total: totalProperties,
-					perPage: paginate.count,
-					page: parseInt(req.query.page || 1),
-					properties: result
+					...result
 				}
 			}
 

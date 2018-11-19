@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 import mongooseSoftdelete from 'mongoose-softdelete'
+import mongoosePaginate from 'library/mongoose-paginate'
 
 const fields = {
 	
@@ -170,5 +171,6 @@ Property.virtual('rent').get(function() {
 })
 
 Property.plugin(mongooseSoftdelete)
+Property.plugin(mongoosePaginate)
 
 export default mongoose.model('Property', Property)
