@@ -3,27 +3,30 @@ import conekta from 'conekta-promises'
 conekta.locale = process.env.CONEKTA_LOCALE
 conekta.api_key = process.env.CONEKTA_PRIVATE
 
-const Conekta = {
+export default {
 	
 	Customer: {
 		
-		create: async (params) => {
-			const customer = await conekta.Customer.create({
-				name: params.name,
-				email: params.email,
-				phone: params.phone,
-				shipping_contacts: params.contacts
-			})
-
+		async create (params) {
+			const data = {}
+			data.name = params.name
+			data.email = params.email
+			data.phone = params.phone
+			
+			if (params.contacts) {
+				data.shipping_contacts = params.contacts
+			}
+			
+			const customer = await conekta.Customer.create(data)
 			return customer
 		},
 		
-		all: async () => {
+		async all () {
 			const customers = await conekta.Customer.find()
 			return customers
 		},
 
-		get: async (id) => {
+		async get (id) {
 			return await conekta.Customer.find(id)
 		},
 		
@@ -67,5 +70,3 @@ const Conekta = {
 	}
 
 }
-
-export default Conekta
