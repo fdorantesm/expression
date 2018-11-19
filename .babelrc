@@ -16,6 +16,7 @@
         "view": "./app/views",
         // modules
         "app": "./app/index",
+        "loader": "./app/loader",
         "router": "./app/libraries/router",
         "routes": "./app/http/router.js"
       }
