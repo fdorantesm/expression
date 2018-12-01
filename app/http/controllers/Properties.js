@@ -1,4 +1,6 @@
 import Property from 'model/property'
+import Profile from 'model/profile'
+import User from 'model/user'
 import { Types } from 'mongoose'
 import { isArray } from 'lodash'
 
@@ -41,7 +43,7 @@ export default class Properties {
 
 		else {
 			paginate.count = 10
-			paginate.page = req.query.page || 1
+			paginate.page = parseInt(req.query.page) || 1
 			paginate.start = paginate.page * paginate.count
 
 
@@ -74,36 +76,36 @@ export default class Properties {
 		}
 
 		try {
-			let result = await handler
+			
+			Promise.all([handler]).then(values => {
+				let result = values[0]
+				res.send({data: result})
+			})
+			
 
-			if (!result) {
-				const err = new Error('Not Found')
-				err.message = 'Not Found'
-				err.status = 404
-				throw err
-			}
 
-			if (req.params.id) {
-				let prev = await Properties.near(result._id, 'prev')
-				let next = await Properties.near(result._id, 'next')
-				let prop = result.toJSON()
-				response = { ...prop }
-				response.prev = prev
-				response.next = next
-			}
+			// res.send({data: []})
 
-			else {
-				response = {
-					...result
-				}
-			}
+			// if (req.params.id) {
+			// 	let prev = await Properties.near(result._id, 'prev')
+			// 	let next = await Properties.near(result._id, 'next')
+			// 	let prop = result.toJSON()
+			// 	response = { ...prop }
+			// 	response.prev = prev
+			// 	response.next = next
+			// }
 
-			res.send(response)
+			// else {
+			// 	response = {...result}
+			// 	console.log(response)
+			// }
+
+			// res.send({response})
 			
 		}
 
 		catch (err) {
-			res.status(err.status || 400).send(err)
+			res.status(err.status || 400).send({err})
 		}
 	}
 
@@ -210,5 +212,5 @@ export default class Properties {
 				deleted: false
 			})
 	}
-
+ 
 }

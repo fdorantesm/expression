@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 import mongooseBeautifulUniqueValidation from 'mongoose-beautiful-unique-validation'
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 const fields = {
 
@@ -78,5 +79,6 @@ User.set('toObject', {
 })
 
 User.plugin(mongooseBeautifulUniqueValidation)
+User.plugin(mongoosePaginate)
 
 export default mongoose.model('User', User)

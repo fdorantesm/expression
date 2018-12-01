@@ -13,10 +13,10 @@ export default class Users {
 		const count = 10
 		const start = ((req.query.p || 1) -1) * count
 		let total = 0
+		const response = {}
 
 		try {
 
-			const response = {}
 			
 			if (req.params.id) {
 				user = User.findById(req.params.id)
@@ -39,25 +39,25 @@ export default class Users {
 
 				total = User.length
 				
-				user = (User
-					.find(filter)
-					.skip(start)
-					.limit(count)
-				)
+				user = User.paginate(filter, {
+					page: parseInt(req.query.page) || 1,
+					limit: 5,
+					populate: 'profile'
+				})
 			}
 
-			response.data = await user.populate('profile')
-			
+			response.data = await user
+
 			if (!req.params.id) {
 				response.pages = Math.ceil(total / response.data.length)
 				response.page = parseInt(req.query.p || 1)
 			}
 			
-			res.send(response)
+			res.send({data: response.data})
 		}
 
 		catch (e) {
-			res.send(e).status(400)
+			res.send({e}).status(400)
 		}
 	}
 

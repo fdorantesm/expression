@@ -81,15 +81,15 @@ const options = {
 
 const Profile = new mongoose.Schema(fields, options)
 
-Profile.set('toJSON', {
-    transform: (doc, ret, opt) => {
-    	delete ret['address']
-    	delete ret['phone']
-    	delete ret['conekta']
-        delete ret['ID']['front']
-        delete ret['ID']['back']
-        return ret
-    }
-})
+// Profile.set('toJSON', {
+//     transform: (doc, ret, opt) => {
+//     	delete ret['address']
+//     	delete ret['phone']
+//     	delete ret['conekta']
+//         delete ret['ID']['front']
+//         delete ret['ID']['back']
+//         return ret
+//     }
+// })
 
 export default mongoose.model('Profile', Profile)
