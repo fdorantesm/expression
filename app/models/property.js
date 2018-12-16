@@ -16,9 +16,11 @@ const fields = {
 		minLength: 255,
 	},
 	
-	files: {
-		type: Array
-	},
+	photos: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'File',
+		// required: true
+	}],
 	
 	category: {
 		type: mongoose.Schema.Types.ObjectId,
