@@ -13,6 +13,7 @@ import locales from 'config/i18n'
 import Auth from 'middleware/auth'
 import acl from 'library/permissions'
 import boom from 'express-boom'
+import fileUpload from 'express-fileupload'
 
 export default (app) => {
 
@@ -22,12 +23,15 @@ export default (app) => {
 
 	app.use(`/${process.env.APP_STATIC}`, serve(process.env.PWD + "/"+ process.env.APP_STATIC))
 	app.use(serve(process.env.PWD + "/"+ process.env.APP_PUBLIC))
-	app.use(favicon(process.env.APP_PUBLIC + '/favicon.png'))
+	app.use(favicon(process.env.APP_STATIC + '/favicon.png'))
 
 	app.use(bodyParser.json())
 	app.use(bodyParser.urlencoded({ extended: false }))
 	app.use(cookieParser())
 	app.use(cors({ origin: '*' }))
+	app.use(fileUpload({
+		safeFileNames: true
+	}))
 
 	i18n.configure(locales)
 
