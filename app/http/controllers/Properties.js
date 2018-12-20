@@ -4,6 +4,7 @@ import Property from 'model/property'
 import Profile from 'model/profile'
 import User from 'model/user'
 import File from 'model/file'
+import Upload from 'library/upload'
 
 export default class Properties {
 
@@ -108,55 +109,18 @@ export default class Properties {
 	}
 
 	static async create (req, res) {
-		
-		// const params = {}
-		
-		// params.title = req.body.title
-		// params.description = req.body.description
-		// params.photos = req.body.files
-		// params.category = req.body.category
-		// params.cert = req.body.cert
-		// params.amenities = req.body['amenities[]']
-
-		// params.address = {}
-		// params.address.line1 = req.body.address_line1
-		// params.address.line2 = req.body.address_line2
-		// params.address.line3 = req.body.address_line3
-		// params.address.zip = req.body.address_zip
-		// params.address.country = req.body.address_country
-		// params.address.region = req.body.address_region
-		// params.address.city = req.body.address_city
-
-		// params.address.location = {}
-		// params.address.location.lat = req.body.address_lat
-		// params.address.location.lon = req.body.address_lon
-		
-		// params.cost = req.body.cost
-		// params.owner = req.body.owner
-		// params.maintenance = req.body.maintenance
-		// params.contract = {}
-		// params.contract.length = req.body.contract_length
-		// params.contract.warranty = req.body.contract_warranty
-		// params.contract.monthsInAdvance = req.body.contract_months_in_advance
-		// params.access = req.body.access
-		// params.status = req.body.status
-		// params.options = req.body.options
-		// params.photos = []
-
-		const files = req.files['photos[]']
-
+		const files = req.files ?  req.files['photos[]'] : []
 		const images = !isArray(files) ? [files] : files
-
-		// if (!isArray(files)) {images.push(files)}
-
-		// else if (isArray(files)) { images = files }
-
 		const uploadPromises = []
 
-		images.map(image => uploadPromises.push(image.mv(`${process.env.PWD}/${process.env.APP_PUBLIC}/${image.file}`)))
+		// images.map(image => uploadPromises.push(image.mv(`${process.env.PWD}/${process.env.APP_PUBLIC}/${image.file}`)))
+		images.map(image => {
+			uploadPromises.push(Upload.image(image))
+		})
+
 
 		Promise.all(uploadPromises)
-			.then(async data => {
+			.then(async sources => {
 				try {
 					const property = new Property()
 					property.title = req.body.title
@@ -193,11 +157,11 @@ export default class Properties {
 
 					const photosPromises = []
 
-					images.map(image => {
+					sources.map(src => {
+						console.log({src})
 						photosPromises.push(new File({
-							name: image.name,
 							type: 'image',
-							path: image.file,
+							path: src.secure_url,
 							object: property.id,
 							objectModel: 'Property'
 						}).save())
@@ -207,20 +171,19 @@ export default class Properties {
 						.then(async photos => {
 							photos.map(photo => {
 								property.photos.push(photo.id)
-								
 							})
 						})
 						.then(async () => {
 							await property.save()
 							res.send({property})
 						})
-
-
 				}
 
 				catch (err) {
 					res.status(err.status || 400).send(err)
 				}
+			}).catch(err => {
+				console.log(err)
 			})
 
 
