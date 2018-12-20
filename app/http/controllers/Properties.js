@@ -158,8 +158,9 @@ export default class Properties {
 					const photosPromises = []
 
 					sources.map(src => {
-						console.log({src})
+						console.log({src, name: `${src.public_id}.${src.format}` })
 						photosPromises.push(new File({
+							name: `${src.public_id}.${src.format}`,
 							type: 'image',
 							path: src.secure_url,
 							object: property.id,

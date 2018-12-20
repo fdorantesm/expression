@@ -2,6 +2,10 @@ import mongoose from 'mongoose'
 
 const fields = {
 	
+	name: {
+		type: String
+	},
+
 	object: {
 		type: mongoose.Schema.Types.ObjectId,
 		refPath: 'objectModel',
@@ -32,9 +36,13 @@ const fields = {
 		type: String,
 		required: true
 	}
-	
+		
 }
 
-const Country = new mongoose.Schema(fields)
+const options = {
+	timestamps: true
+}
+
+const Country = new mongoose.Schema(fields, options)
 
 export default mongoose.model('File', Country)
