@@ -3,6 +3,8 @@ import app from 'app'
 import User from 'model/user'
 import Profile from 'model/profile'
 import Conekta from 'library/conekta'
+import {sockets} from 'server'
+import request from 'request-promise'
 
 export default class Auth {
 
@@ -26,6 +28,68 @@ export default class Auth {
 			res.boom.badRequest('Email and password are required fields.')
 		}
 		
+	}
+
+	static async facebook(req, res) {
+		let data = null
+		let result = null
+		request(`https://graph.facebook.com/v3.2/me?access_token=${req.body.authResponse.accessToken}`)
+			
+			.then(async body => {
+				
+				const data = JSON.parse(body)
+
+				if (data.id === req.body.id && data.id == req.body.authResponse.userID && req.body.email) {
+					let email = req.body.email
+					const token = await auth.social(email)
+					const user = await User.findOne({email}).populate('profile')
+					if (user && token) {
+						result = {...user.toObject(), token}
+						sockets.wss.emit('logged', result)
+						res.send(result)
+					}
+					else {
+						throw new Error("Los datos de acceso no son válidos")
+					}
+				}
+				
+			})
+			
+			.catch(err => {
+				res.boom.unauthorized(err.message)
+			})
+	}
+
+	static async google(req, res) {
+		let data = null
+		let result = null
+		request(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${req.body.authResponse.access_token}`)
+			
+			.then(async body => {
+				
+				const data = JSON.parse(body)
+
+				if (data.user_id === req.body.id && data.user_id == req.body.id && req.body.email === data.email) {
+					let email = req.body.email
+					const token = await auth.social(email)
+					const user = await User.findOne({email}).populate('profile')
+					if (user && token) {
+						result = {...user.toObject(), token}
+						sockets.wss.emit('logged', result)
+						res.send(result)
+					}
+
+					else {
+						throw new Error("Los datos de acceso no son válidos")
+					}
+				}
+				
+			})
+			
+			.catch(err => {
+				res.boom.unauthorized(err.message)
+			})
+
 	}
 
 	static async register (req, res) {

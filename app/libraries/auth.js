@@ -11,7 +11,7 @@ export default class Auth {
 		
 		if ('email' in params && password) {
 			
-			let user = await User.findOne(params).populate('profile')
+			let user = await User.findOne(params)
 
 			if (!user) {
 				err.status = 422
@@ -34,6 +34,20 @@ export default class Auth {
 				err.message = 'The email and password doesn\'t match'
 				throw err
 			}
+		}
+	}
+
+	static async social (email) {
+		let user = await User.findOne({email})
+		if (user) {
+			let token = jwt.sign({ sub: user.id }, process.env.APP_SECURE_KEY, { expiresIn: process.env.APP_SECURE_EXPIRATION } )
+			user.token = token
+			user.lastLogin = new Date()
+			user = await user.save()
+			return token
+		}
+		else {
+			return null
 		}
 	}
 
