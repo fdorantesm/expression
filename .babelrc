@@ -4,6 +4,7 @@
       "root": ["./"],
       "alias": {
         // paths
+        "bin": "./bin",
         "config": "./app/config",
         "model": "./app/models",
         "controller": "./app/http/controllers",
@@ -16,9 +17,12 @@
         "view": "./app/views",
         // modules
         "app": "./app/index",
+        "events": "./app/events",
         "loader": "./app/loader",
         "router": "./app/libraries/router",
-        "routes": "./app/http/router.js"
+        "routes": "./app/http/router.js",
+        "www": "./bin/www",
+        "server": "./bin/server"
       }
     }]
   ]
