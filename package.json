@@ -33,6 +33,7 @@
     "jsonwebtoken": "^8.3.0",
     "md5": "^2.2.1",
     "moment": "^2.22.2",
+    "moment-timezone": "^0.5.23",
     "mongoose": "^5.3.4",
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "mongoose-geojson-schema": "^2.1.3",
