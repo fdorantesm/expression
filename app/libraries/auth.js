@@ -37,13 +37,13 @@ export default class Auth {
 		}
 	}
 
-	static async social (email) {
-		let user = await User.findOne({email})
+	static async social (id) {
+		const user = await User.findOne({ _id: id })
 		if (user) {
 			let token = jwt.sign({ sub: user.id }, process.env.APP_SECURE_KEY, { expiresIn: process.env.APP_SECURE_EXPIRATION } )
 			user.token = token
 			user.lastLogin = new Date()
-			user = await user.save()
+			await user.save()
 			return token
 		}
 		else {
