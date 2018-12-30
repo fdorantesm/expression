@@ -75,6 +75,10 @@ const fields = {
 
 	social: {
 		type: Object
+	},
+
+	gender: {
+		type: String
 	}
 
 }

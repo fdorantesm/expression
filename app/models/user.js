@@ -14,8 +14,7 @@ const fields = {
 	},
 
 	email: {
-		type: String,
-		required: true
+		type: String
 	},
 
 	password: {

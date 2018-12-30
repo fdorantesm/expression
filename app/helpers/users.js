@@ -7,23 +7,37 @@ export async function createCustomer(data) {
 		firstName,
 		lastName,
 		social,
-		email,
 		nickname,
 		password
 	} = data
 
-	const profile = new Profile({
-		firstName,
-		lastName,
-		social
-	})
+	const profileFields = {}
+	const userFields = {}
+	
+	profileFields.firstName = firstName
+	profileFields.lastName = lastName
+	profileFields.social = social
 
-	const user = new User({
-		email,
-		nickname,
-		password,
-		profile: profile._id
-	})
+	if (data.gender) {
+		profileFields.gender = data.gender
+	}
+
+	if (data.dob) {
+		profileFields.dob = data.dob
+	}
+
+	if (data.email) {
+		userFields.email = data.email
+	}
+
+	userFields.nickname = nickname
+	userFields.password = password
+	
+	const profile = new Profile(profileFields)
+
+	userFields.profile = profile.id
+
+	const user = new User(userFields)
 	
 	return Promise.all([
 		user.save(),

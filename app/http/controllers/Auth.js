@@ -40,22 +40,33 @@ export default class Auth {
 		request(`https://graph.facebook.com/v3.2/me?access_token=${req.body.authResponse.accessToken}&fields=email,gender,birthday,first_name,last_name`)
 			.then(async body => {
 				const data = JSON.parse(body)
-				if (data.id === req.body.id && data.id == req.body.authResponse.userID && req.body.email) {
+				if (data.id === req.body.id && data.id == req.body.authResponse.userID) {
 					let email = data.email
 					
 					profile = await Profile.findOne({social: { facebook: data.id }})
 
 					if (!profile) {
-						const customer = await createCustomer({
-							firstName: data.first_name,
-							lastName: data.last_name,
-							social: {
-								facebook: data.id
-							},
-							email: data.email,
-							nickname: md5(data.email + Date.now()),
-							password: await auth.hash(data.id),
-						})
+						const userFields = {}
+						userFields.firstName = data.first_name
+						userFields.lastName = data.last_name
+						userFields.social = { facebook: data.id }
+						userFields.nickname = md5(data.id + Date.now())
+						userFields.password = await auth.hash(md5(data.id))
+
+						if (data.email) {
+							userFields.email = data.email
+						}
+
+						if (data.gender) {
+							userFields.gender = data.gender
+						}
+
+						if (data.birthday) {
+							userFields.dob = Date(data.birthday)
+						}
+
+
+						const customer = await createCustomer(userFields)
 
 						user = customer.user
 						profile = customer.profile
@@ -88,8 +99,6 @@ export default class Auth {
 					let email = data.email
 
 					profile = await Profile.findOne({social: { google: data.id }})
-
-					console.log({profile})
 
 					if (!profile) {
 						const customer = await createCustomer({
