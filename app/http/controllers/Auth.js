@@ -50,7 +50,6 @@ export default class Auth {
 						userFields.firstName = data.first_name
 						userFields.lastName = data.last_name
 						userFields.social = { facebook: data.id }
-						userFields.nickname = md5(data.id + Date.now())
 						userFields.password = await auth.hash(md5(data.id))
 
 						if (data.email) {
@@ -62,9 +61,8 @@ export default class Auth {
 						}
 
 						if (data.birthday) {
-							userFields.dob = Date(data.birthday)
+							userFields.dob = new Date(data.birthday)
 						}
-
 
 						const customer = await createCustomer(userFields)
 
@@ -108,7 +106,6 @@ export default class Auth {
 								google: data.id
 							},
 							email: data.email,
-							nickname: md5(data.email + Date.now()),
 							password: await auth.hash(md5(data.id)),
 						})
 

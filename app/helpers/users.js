@@ -1,5 +1,6 @@
 import User from 'model/user'
 import Profile from 'model/profile'
+import slug from 'slug'
 
 export async function createCustomer(data) {
 
@@ -24,13 +25,18 @@ export async function createCustomer(data) {
 
 	if (data.dob) {
 		profileFields.dob = data.dob
+		userFields.nickname = slug(`${firstName}.${lastName}.${data.dob.getYear()}${data.dob.getMonth()}${data.dob.getDate()}`, { lower: true })
+	} 
+
+	else {
+		const today = new Date()
+		userFields.nickname = slug(`${firstName}.${lastName}.${today.getYear()}${today.getMonth()}${today.getDate()}`, { lower: true })
 	}
 
 	if (data.email) {
 		userFields.email = data.email
 	}
 
-	userFields.nickname = nickname
 	userFields.password = password
 	
 	const profile = new Profile(profileFields)
