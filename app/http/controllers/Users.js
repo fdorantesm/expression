@@ -30,7 +30,8 @@ export default class Users {
 							$or : [
 								{ 'username' : new RegExp(`.*${req.query.q}.*`, 'i') },
 								{ 'email' : new RegExp(`.*${req.query.q}.*`, 'i') },
-								{ 'profile.name' : new RegExp(`.*${req.query.q}.*`, 'i') }
+								{ 'profile.firstName' : new RegExp(`.*${req.query.q}.*`, 'i') },
+								{ 'profile.lastName' : new RegExp(`.*${req.query.q}.*`, 'i') }
 							]
 						}
 					}
@@ -63,7 +64,8 @@ export default class Users {
 
 	static async create (req, res) {
 		let profile = new Profile({
-			name: req.body.name,
+			firstName: req.body.first_name,
+			lastName: req.body.last_name,
 			dob: req.body.dob,
 			phone: `+52${req.body.phone}`,
 			ID: {
@@ -95,13 +97,13 @@ export default class Users {
 			profile = await profile.save()
 
 			const Customer = new Conekta.Customer()
-
-			Customer.name = req.body.name
+			const fullname = `${req.body.first_name} ${req.body.last_name}`
+			Customer.name = fullname
 			Customer.email = req.body.email
 			Customer.phone = `+52${req.body.phone}`
 			Customer.contacts = [{
 				phone: `+52${req.body.phone}`,
-				receiver: req.body.name,
+				receiver: fullname,
 				between_streets: req.body['address.line3'],
 				address: {
 					street1: `${req.body['address.line1']} ${req.body['address.line2']}`,
@@ -110,7 +112,6 @@ export default class Users {
 					
 				}
 			}]
-
 
 			let conekta = await Customer.save()
 			await Profile.updateOne({_id:profile.id}, {conekta: conekta._id})
@@ -126,31 +127,6 @@ export default class Users {
 		catch (err) {
 			res.status(400).send(err)
 		}
-		
-		// let customer = await payment.customer.create({
-		// 	name: profile.name,
-		// 	email: user.email,
-		// 	phone: profile.phone,
-		// 	shipping_contacts: [{
-		// 		phone: profile.phone,
-		// 		receiver: profile.name,
-		// 		between_streets: profile.address.line3 || '',
-		// 		address: {
-		// 			street1: `${profile.address.line1} ${profile.address.line2}`,
-		// 			country: "MX",
-		// 			postal_code: profile.address.zip
-		// 			}
-		// 	}]
-		// })
-
-
-		
-		// if ('_id' in customer) {
-		// 	profile.conekta = customer.toObject().id
-		// 	await profile.save()
-		// 	return user
-		// }
-
 
 	}
 

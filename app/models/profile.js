@@ -2,7 +2,12 @@ import mongoose from 'mongoose'
 
 const fields = {
 
-	name: {
+	firstName: {
+		type: String,
+		required: true
+	},
+
+	lastName: {
 		type: String,
 		required: true
 	},
@@ -23,17 +28,14 @@ const fields = {
 		city: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'City',
-			required: true
 		},
 		region: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Region',
-			required: true
 		},
 		country: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Country',
-			required: true
 		}
 	},
 	
@@ -69,7 +71,11 @@ const fields = {
 	cards: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Card'
-	}]
+	}],
+
+	social: {
+		type: Object
+	}
 
 }
 

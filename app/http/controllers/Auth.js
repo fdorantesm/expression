@@ -5,6 +5,8 @@ import Profile from 'model/profile'
 import Conekta from 'library/conekta'
 import {sockets} from 'server'
 import request from 'request-promise'
+import md5 from 'md5'
+import {createCustomer} from 'helper/users'
 
 export default class Auth {
 
@@ -33,24 +35,37 @@ export default class Auth {
 	static async facebook(req, res) {
 		let data = null
 		let result = null
-		request(`https://graph.facebook.com/v3.2/me?access_token=${req.body.authResponse.accessToken}`)
-			
+		let user = null
+		let profile = null
+		request(`https://graph.facebook.com/v3.2/me?access_token=${req.body.authResponse.accessToken}&fields=email,gender,birthday,first_name,last_name`)
 			.then(async body => {
-				
 				const data = JSON.parse(body)
-
 				if (data.id === req.body.id && data.id == req.body.authResponse.userID && req.body.email) {
-					let email = req.body.email
-					const token = await auth.social(email)
-					const user = await User.findOne({email}).populate('profile')
-					if (user && token) {
-						result = {...user.toObject(), token}
-						sockets.wss.emit('logged', result)
-						res.send(result)
+					let email = data.email
+					
+					profile = await Profile.findOne({social: { facebook: data.id }})
+
+					if (!profile) {
+						const customer = await createCustomer({
+							firstName: data.first_name,
+							lastName: data.last_name,
+							social: {
+								facebook: data.id
+							},
+							email: data.email,
+							nickname: md5(data.email + Date.now()),
+							password: await auth.hash(data.id),
+						})
+
+						user = customer.user
+						profile = customer.profile
+
 					}
-					else {
-						throw new Error("Los datos de acceso no son válidos")
-					}
+
+					user = await User.findOne({ profile: profile.id }).populate('profile')
+					const token = await auth.social(user.id)
+					result = {...user.toObject(), token}
+					res.send(result)
 				}
 				
 			})
@@ -63,25 +78,40 @@ export default class Auth {
 	static async google(req, res) {
 		let data = null
 		let result = null
-		request(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${req.body.authResponse.access_token}`)
-			
+		let user = null
+		let profile = null
+		request(`https://www.googleapis.com/userinfo/v2/me?access_token=${req.body.authResponse.access_token}`)
 			.then(async body => {
-				
 				const data = JSON.parse(body)
 
-				if (data.user_id === req.body.id && data.user_id == req.body.id && req.body.email === data.email) {
-					let email = req.body.email
-					const token = await auth.social(email)
-					const user = await User.findOne({email}).populate('profile')
-					if (user && token) {
-						result = {...user.toObject(), token}
-						sockets.wss.emit('logged', result)
-						res.send(result)
+				if (data.id === req.body.id && data.id == req.body.id && req.body.email === data.email) {
+					let email = data.email
+
+					profile = await Profile.findOne({social: { google: data.id }})
+
+					console.log({profile})
+
+					if (!profile) {
+						const customer = await createCustomer({
+							firstName: data.given_name,
+							lastName: data.family_name,
+							social: {
+								google: data.id
+							},
+							email: data.email,
+							nickname: md5(data.email + Date.now()),
+							password: await auth.hash(md5(data.id)),
+						})
+
+						user = customer.user
+						profile = customer.profile
 					}
 
-					else {
-						throw new Error("Los datos de acceso no son válidos")
-					}
+
+					user = await User.findOne({ profile: profile.id }).populate('profile')
+					const token = await auth.social(user.id)
+					result = {...user.toObject(), token}
+					res.send(result)
 				}
 				
 			})
@@ -121,7 +151,7 @@ export default class Auth {
 			user = await user.save()
 			profile = await profile.save()
 
-			res.send(null)
+			res.send({})
 		}
 
 		catch (err) {
