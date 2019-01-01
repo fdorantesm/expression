@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon --config .nodemon  bin/www --exec babel-node --presets env,stage-2",
-    "start": "forever start bin/www --exec babel-node --presets env,stage-2 -r dotenv/config",
+    "start": "forever start -c \"babel-node --presets env,stage-2\" bin/www",
     "test": "forever start bin/www --exec babel-node --presets env,stage-2 -r dotenv/config"
   },
   "keywords": [],
