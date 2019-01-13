@@ -138,7 +138,8 @@ export default class Auth {
 			user.email = req.body.email
 			user.password = await auth.hash(req.body.password)
 			user.profile = profile.id
-			profile.name = req.body.name
+			profile.firstName = req.body.first_name
+			profile.lastName = req.body.last_name
 			profile.dob = req.body.dob
 			profile.phone = `+52${req.body.phone}`
 			profile.address = {}
@@ -147,7 +148,7 @@ export default class Auth {
 			profile.address.city = req.body.city
 
 			const customer = await Conekta.Customer.create({
-				name: profile.name,
+				name: `${profile.firstName} ${profile.lastName}`,
 				email: user.email,
 				phone: profile.phone
 			})
