@@ -4,6 +4,8 @@ import https from 'https'
 import app from 'app'
 import Socket from 'library/io'
 
+const port = process.env.APP_PORT
+
 const key = fs.readFileSync(process.env.APP_SSL_KEY)
 const cert = fs.readFileSync(process.env.APP_SSL_CERT)
 
@@ -52,7 +54,7 @@ function onError(error) {
 		throw error
 	}
 
-	const bind = typeof port === 'string'? 'Pipe ' + port : 'Port ' + port
+	const bind = typeof error.port === 'string'? 'Pipe ' + error.port : 'Port ' + error.port
 	// handle specific listen errors with friendly messages
 	switch (error.code) {
 		case 'EACCES':
