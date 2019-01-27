@@ -64,18 +64,25 @@
             "./app"
           ],
           "alias": {
+            "bin": "./bin",
             "config": "./app/config",
-            "schema": "./app/db/schemas",
-            "model": "./app/db/models",
+            "model": "./app/models",
             "controller": "./app/http/controllers",
-            "middleware": "./app/http/middleware",
+            "middleware": "./app/http/middlewares",
             "route": "./app/http/routes",
             "locale": "./app/locales",
             "log": "./app/logs",
-            "library": "./app/utilities/libraries",
-            "helper": "./app/utilities/helpers",
-            "view": "./app/views"
-          }
+            "library": "./app/libraries",
+            "helper": "./app/helpers",
+            "view": "./app/views",
+            "app": "./app/index",
+            "events": "./app/events",
+            "loader": "./app/loader",
+            "router": "./app/libraries/router",
+            "routes": "./app/http/router.js",
+            "www": "./bin/www",
+            "server": "./bin/server"
+            }
         }
       ]
     ]
