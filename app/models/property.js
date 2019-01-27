@@ -139,9 +139,9 @@ const fields = {
 		ref: 'Rate'
 	}],
 	
-	requests: [{
+	books: [{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Request'
+		ref: 'Book'
 	}]
 }
 

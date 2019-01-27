@@ -52,8 +52,8 @@ const options = {
 	timestamps: true
 }
 
-const Request = new mongoose.Schema(fields, options)
+const Book = new mongoose.Schema(fields, options)
 
-Request.plugin(mongooseSoftdelete)
+Book.plugin(mongooseSoftdelete)
 
-export default mongoose.model('Request', Request)
+export default mongoose.model('Book', Book)
