@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken'
 import middlewares from 'config/middlewares'
 import translation from 'config/i18n'
-import permissions from 'config/acl';
+import permissions from 'config/acl'
+
 export default (app) => {
 
 	if (process.env.APP_VIEWS_ENGINE && process.env.APP_VIEWS) {
