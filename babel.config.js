@@ -25,6 +25,7 @@ module.exports = function (api) {
 					"helper": "./src/app/helpers",
 					"view": "./src/app/views",
 					"app": "./src/app/index",
+					"env": "./src/app/env",
 					"events": "./src/app/events",
 					"loader": "./src/app/loader",
 					"router": "./src/app/libraries/router",

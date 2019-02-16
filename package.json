@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo 'no tests ready",
     "clean": "rm -rf ./app ./bin",
-    "start": "nodemon --config .nodemon  src/bin/www.js --exec babel-node",
+    "start": "nodemon --config .nodemon  bin/www.js --exec babel-node",
     "start:es6": "forever start -c \"babel-node --presets env,stage-2\" bin/www.js",
     "build": "npm run clean && babel src -d . -D",
     "start:forever": "forever start bin/www.js",
