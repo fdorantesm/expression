@@ -5,9 +5,13 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "nodemon --config .nodemon  bin/www --exec babel-node --presets env,stage-2",
-    "start": "forever start -c \"babel-node --presets env,stage-2\" bin/www",
-    "test": "forever start bin/www --exec babel-node --presets env,stage-2 -r dotenv/config"
+    "test": "echo 'no tests ready",
+    "clean": "rm -rf ./app ./bin",
+    "start": "nodemon --config .nodemon  bin/www.js --exec babel-node",
+    "start:es6": "forever start -c \"babel-node --presets env,stage-2\" bin/www.js",
+    "build": "npm run clean && babel src -d . -D",
+    "start:forever": "forever start bin/www.js",
+    "release": "npm run build && npm run start:forever"
   },
   "keywords": [],
   "author": "",
@@ -51,40 +55,18 @@
     "winston": "^3.1.0"
   },
   "devDependencies": {
-    "babel-plugin-module-resolver": "^3.1.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1"
-  },
-  "babel": {
-    "plugins": [
-      [
-        "module-resolver",
-        {
-          "root": [
-            "./app"
-          ],
-          "alias": {
-            "bin": "./bin",
-            "config": "./app/config",
-            "model": "./app/models",
-            "controller": "./app/http/controllers",
-            "middleware": "./app/http/middlewares",
-            "route": "./app/http/routes",
-            "locale": "./app/locales",
-            "log": "./app/logs",
-            "library": "./app/libraries",
-            "helper": "./app/helpers",
-            "view": "./app/views",
-            "app": "./app/index",
-            "events": "./app/events",
-            "loader": "./app/loader",
-            "router": "./app/libraries/router",
-            "routes": "./app/http/router.js",
-            "www": "./bin/www",
-            "server": "./bin/server"
-            }
-        }
-      ]
-    ]
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.3",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-stage-2": "^7.0.0",
+    "@babel/runtime": "^7.3.1",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3",
+    "webpack-node-externals": "^1.7.2"
   }
 }
