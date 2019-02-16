@@ -1,15 +1,13 @@
+import jwt from 'jsonwebtoken'
 import middlewares from 'config/middlewares'
+import translation from 'config/i18n'
 import permissions from 'config/acl'
-import path from 'path'
-import fs from 'fs'
 
 export default (app) => {
 
-	if (process.env.APP_VIEWS_ENGINE) {
-		const views = path.join(process.env.APP_PATH, 'views')
-		fs.existsSync(views) || fs.mkdirSync(views)
+	if (process.env.APP_VIEWS_ENGINE && process.env.APP_VIEWS) {
 		app.set('view engine', process.env.APP_VIEWS_ENGINE)
-		app.set('views', path.join(process.env.APP_PATH, 'views'))
+		app.set('views', process.env.APP_VIEWS)
 	}
 	
 	app.set('env', process.env)

@@ -14,11 +14,10 @@ import Auth from 'middleware/auth'
 import acl from 'library/permissions'
 import boom from 'express-boom'
 import fileUpload from 'express-fileupload'
-import path from 'path'
 
 export default (app) => {
 
-	const logDirectory =  path.join(process.env.APP_PATH, 'logs')
+	const logDirectory =  process.env.APP_LOGS
 
 	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 
@@ -50,9 +49,10 @@ export default (app) => {
 		next(err)
 	})
 
-	app.use((error, req, res, next) => {
-		res.status(error.status || 500)
-		res.render('error', {error, env: process.env.ENV})
+	app.use((err, req, res, next) => {
+		res.locals.message = err.message
+		res.status(err.status || 500)
+		res.render('error', {env: req.app.get('env')})
 	})
 
 	app.use(compression())
