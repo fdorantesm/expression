@@ -5,7 +5,7 @@
 			"path": ".",
 			"folder_exclude_patterns": [
 				"node_modules",
-				"morada/app",
+				// "morada/app",
 				"morada/bin"
 			],
 			"file_exclude_patterns": [

@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import debug from 'debug'
 import {server, sockets} from 'server'
 
 const {ws, wss} = sockets
