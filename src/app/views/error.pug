@@ -3,7 +3,8 @@ extends layout
 block content
 	
 	div(style="display:flex; height:100%; width:100%; ")
-		div(style="margin: auto;")
+		div(style="width:100%; margin: auto;")
 			div(style="text-align:center")
-				h1 #{error.status} #{message}
+				div(style="font-size:6rem;") #{error.status}
+				div(style="font-size:4rem;") #{error.message}
 			pre #{error.stack}
