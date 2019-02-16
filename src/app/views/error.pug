@@ -7,4 +7,5 @@ block content
 			div(style="text-align:center")
 				div(style="font-size:6rem;") #{error.status}
 				div(style="font-size:4rem;") #{error.message}
-			pre #{error.stack}
+			if env === 'local'
+				pre #{error.stack}
