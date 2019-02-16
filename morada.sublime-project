@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"folder_exclude_patterns": [
+				"node_modules",
+				"morada/app",
+				"morada/bin"
+			],
+			"file_exclude_patterns": [
+				"package-lock.json",
+				".hidden"
+			],
+		}
+	]
+}

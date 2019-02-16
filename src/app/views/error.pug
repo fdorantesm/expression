@@ -1,6 +1,9 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+	
+	div(style="display:flex; height:100%; width:100%; ")
+		div(style="margin: auto;")
+			div(style="text-align:center")
+				h1 #{error.status} #{message}
+			pre #{error.stack}
