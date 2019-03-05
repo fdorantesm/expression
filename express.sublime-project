@@ -1,13 +1,13 @@
 {
-	"folders":
-	[
-		{
-			"path": ".",
-            "exclude_folder_patterns": [
+    "folders":
+    [
+        {
+            "path": ".",
+            "folder_exclude_patterns": [
                 "node_modules",
-                "morada/app",
-                "morada/bin"
+                "express/app",
+                "express/bin"
             ]
-		}
-	]
+        }
+    ]
 }
