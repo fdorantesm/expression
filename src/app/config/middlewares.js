@@ -22,6 +22,8 @@ export default (app) => {
 
 	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 
+	app.use(logger('dev'))
+
 	app.use(`/${process.env.APP_STATIC}`, serve(process.env.PWD + "/"+ process.env.APP_STATIC))
 	app.use(serve(process.env.PWD + "/"+ process.env.APP_PUBLIC))
 	app.use(favicon(process.env.APP_STATIC + '/favicon.png'))
