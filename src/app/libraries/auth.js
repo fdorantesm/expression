@@ -1,54 +1,17 @@
 import moment from 'moment'
-import User from 'model/user'
+// import User from 'model/user'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 export default class Auth {
 	
 	static async connect (params, password) {
-		
-		const err = new Error()
-		
-		if ('email' in params && password) {
-			
-			let user = await User.findOne(params)
-
-			if (!user) {
-				err.status = 422
-				err.message = 'The email and password doesn\'t match...'
-				throw err
-			}
-
-			const match = await Auth.compare(password, user.password)
-			
-			if (match) {
-				let token = jwt.sign({ sub: user.id }, process.env.APP_SECURE_KEY, { expiresIn: process.env.APP_SECURE_EXPIRATION } )
-				user.token = token
-				user.lastLogin = new Date()
-				user = await user.save()
-				return token
-			}
-			
-			else {
-				err.status = 400
-				err.message = 'The email and password doesn\'t match'
-				throw err
-			}
-		}
+		const err = new Error()		
+		return null
 	}
 
 	static async social (id) {
-		const user = await User.findOne({ _id: id })
-		if (user) {
-			let token = jwt.sign({ sub: user.id }, process.env.APP_SECURE_KEY, { expiresIn: process.env.APP_SECURE_EXPIRATION } )
-			user.token = token
-			user.lastLogin = new Date()
-			await user.save()
-			return token
-		}
-		else {
-			return null
-		}
+		return null
 	}
 
 	static async verify (token) {

@@ -1,0 +1,5 @@
+{
+	"watch": ["src/*", ".env", "package.json"],
+	"extension": [".js", ".json", ".pug"],
+	"ignore": ["src/app/locales/*", "src/app/logs/*"]
+}

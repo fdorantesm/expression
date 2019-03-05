@@ -13,8 +13,3 @@ wss.on('connection', socket => {
 		wss.emit('pong', 'server: pong ')
 	});
 })
-
-// setInterval(() => {
-//  	console.log('servidor cuenta chiste')
-//  	wss.emit('joke', 'jajajajajaja')
-// }, 5000)
