@@ -1,4 +1,5 @@
 import middlewares from 'core/middlewares'
+import routes from 'core/routes'
 import permissions from 'config/acl'
 import path from 'path'
 import fs from 'fs'
@@ -36,6 +37,19 @@ export default (app) => {
 	permissions()
 	
 	middlewares(app)
+
+	routes(app)
+
+	app.use((req, res, next) => {
+        let err = new Error('Not Found')
+        err.status = 404
+        next(err)
+    })
+
+    app.use((error, req, res, next) => {
+        res.status(error.status || 500)
+        res.render('error', {error, env: process.env.ENV})
+    })
 
 	return app
 }

@@ -6,7 +6,6 @@ import favicon from 'serve-favicon'
 import fs from 'fs'
 import logger from 'morgan'
 import rfs from 'rotating-file-stream'
-import routes from 'routes'
 import serve from 'serve-static'
 import i18n from 'i18n'
 import locales from 'config/i18n'
@@ -52,23 +51,7 @@ export default (app) => {
 
 	app.use(Auth.handshake, Auth.authorization)
 
-	app.use('/', routes)
-
-	app.use((req, res, next) => {
-		let err = new Error('Not Found')
-		err.status = 404
-		next(err)
-	})
-
-	app.use((error, req, res, next) => {
-		res.status(error.status || 500)
-		res.render('error', {error, env: process.env.ENV})
-	})
-
 	app.use(compression())
-
-	
-
 
 	return app
 
