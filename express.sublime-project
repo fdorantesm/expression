@@ -1,0 +1,13 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+            "exclude_folder_patterns": [
+                "node_modules",
+                "morada/app",
+                "morada/bin"
+            ]
+		}
+	]
+}

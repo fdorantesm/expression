@@ -6,5 +6,4 @@ APP_PATH.pop()
 
 process.env.SRC_PATH = APP_PATH.join('/')
 
-
 export default process.env

@@ -1,5 +1,5 @@
-import express from 'express'
 import { createLogger, transports, format } from 'winston'
+import env from 'env'
 
 const { combine, timestamp, label, printf } = format
 
@@ -21,7 +21,7 @@ const logger = createLogger({
       timestamp: true
     }),
     new (transports.File)({
-    	filename: `${process.env.APP_LOGS}/${process.env.APP_ALIAS}.log`
+    	filename: `${process.env.SRC_PATH}/app/logs/${process.env.APP_ALIAS}.log`
     })
   ],
   format: combine(
