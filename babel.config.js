@@ -30,6 +30,7 @@ module.exports = function (api) {
 					"loader": "./src/app/loader",
 					"router": "./src/app/libraries/router",
 					"routes": "./src/app/http/router",
+					"core": "./src/app/core",
 					"www": "./src/bin/www",
 					"server": "./src/bin/server"
 				}

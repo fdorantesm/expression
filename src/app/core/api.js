@@ -1,4 +1,4 @@
-import middlewares from 'config/middlewares'
+import middlewares from 'core/middlewares'
 import permissions from 'config/acl'
 import path from 'path'
 import fs from 'fs'
