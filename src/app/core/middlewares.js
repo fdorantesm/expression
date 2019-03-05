@@ -23,7 +23,15 @@ export default (app) => {
 	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 
 	app.use(logger('dev'))
-
+	app.use(logger('combined', { 
+		stream: rfs(
+			'access.log', {
+	  			interval: '1d',
+	  			path: logDirectory
+			}
+		)
+	}))
+	
 	app.use(`/${process.env.APP_STATIC}`, serve(process.env.PWD + "/"+ process.env.APP_STATIC))
 	app.use(serve(process.env.PWD + "/"+ process.env.APP_PUBLIC))
 	app.use(favicon(process.env.APP_STATIC + '/favicon.png'))
@@ -59,14 +67,7 @@ export default (app) => {
 
 	app.use(compression())
 
-	app.use(logger('combined', { 
-		stream: rfs(
-			'access.log', {
-	  			interval: '1d',
-	  			path: logDirectory
-			}
-		)
-	}))
+	
 
 
 	return app
