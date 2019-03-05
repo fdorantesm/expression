@@ -6,7 +6,6 @@ export default class TestController {
             'message': 'Hello world :*',
             'status': 200
         }
-        log.info(response)
         res.send(response)
     }
 }

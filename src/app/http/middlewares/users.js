@@ -1,4 +1,3 @@
-import User from 'model/user'
 import spatie from "helper/spatie"
 
 export const fetchAllUsers = async (req, res, next) => {
