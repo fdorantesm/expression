@@ -32,7 +32,8 @@ module.exports = function (api) {
 					"routes": "./src/app/http/router",
 					"core": "./src/app/core",
 					"www": "./src/bin/www",
-					"server": "./src/bin/server"
+					"server": "./src/bin/server",
+					"src": "./src"
 				}
 			}
 		],
