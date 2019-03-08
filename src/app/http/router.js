@@ -7,7 +7,7 @@ import auth from 'route/auth'
 import test from 'route/test'
 
 router.get('/', async (req, res) => {
-    res.render('index')
+    res.render('index', {app: process.env.APP_NAME})
 })
 
 router.use('/auth', auth)
